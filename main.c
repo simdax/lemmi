@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 21:30:19 by scornaz           #+#    #+#             */
-/*   Updated: 2018/03/31 23:49:49 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/03/31 23:55:49 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,25 @@
 
 t_array		*hydrate(t_array *list, char **connexions, int salles)
 {
-	t_node	*array;
-//	t_array	*list;
+	t_node	*node;
 	t_node	sol;
+	char	**names;
 	int		i;
 	int		j;
 
 	i = -1;
-	/* list = array_new(sizeof(t_node), 4); */
-//	sol = (t_node){0, 0, 0, 0, 0, 0}; */
 	while (++i < salles)
 	{
-//		sol.connexions = array_new(sizeof(char), 4);
-		//array_add(list, &sol, 1);
-		array = ((t_node*)(list->mem) + i);
-		array->connexions = array_new(sizeof(char), 4);
+		node = ((t_node*)(list->mem) + i);
+		node->connexions = array_new(sizeof(char), 4);
 		j = 0;
 		while (connexions[j])
 		{
-			char **names = ft_strsplit(connexions[j], '-');
-			char name[2]; name[0] = i + '0'; name[1] = 0;
-			if (ft_strequ(names[0], name))
+			names = ft_strsplit(connexions[j], '-');
+			if (ft_strequ(names[0], node->name))
 			{
-				array_add(array->connexions, names[1], ft_strlen(names[1]));
-				array_add(array->connexions, "|", 1);
+				array_add(node->connexions, names[1], ft_strlen(names[1]));
+				array_add(node->connexions, "|", 1);
 			}
 			++j;
 		}
@@ -46,11 +41,11 @@ t_array		*hydrate(t_array *list, char **connexions, int salles)
 	return (list);
 }
 
-void	getnames2(t_map *map, t_array *array, char *line, int *flag)
+void		getnames2(t_map *map, t_array *array, char *line, int *flag)
 {
 	static t_node	sol = (t_node){0, 0, 0};
 	char			**infos;
-	
+
 	if (line[0] == '#')
 	{
 		line += 2;
@@ -88,15 +83,15 @@ t_array		*get_names(t_map *map)
 		while (get_next_line(fd, &line) > 0)
 			getnames2(map, array, line, &start_end);
 	}
-	return (array);	
+	return (array);
 }
 
-char		*get_txt()
+char		*get_txt(void)
 {
 	char	*line;
 	t_array	*array;
 	int		fd;
-	
+
 	array = array_new(1, 4);
 	if ((fd = open("config", O_RDONLY)) != -1)
 	{
@@ -105,30 +100,10 @@ char		*get_txt()
 			{
 				array_add(array, line, ft_strlen(line));
 				array_add(array, " ", 1);
-			}	
+			}
 	}
 	((char*)array->mem)[array->cursor] = 0;
 	return (array->mem);
-}
-
-char		*rm_char(char *str, char c)
-{
-	char	*ret;
-	int		i;
-	int		len;
-
-	i = 0;
-	len = ft_strlen(str);
-	ret = malloc(len + 1);
-	while (*str)
-	{
-		if (*str != c)
-			ret[i++] = *str;
-		++str;
-	}
-//	free(str - len - 1);
-	ret[i] = 0;
-	return (ret);
 }
 
 int			main(void)
@@ -148,9 +123,7 @@ int			main(void)
 	printf("%s et %s", map.start, map.end);
 	while (i < map.salles)
 	{
-		printf("name : %s %d et %d\n",
-			   nodes->name, nodes->y,
-				nodes->x);
+		printf("name : %s %d et %d\n", nodes->name, nodes->y, nodes->x);
 		printf("%d et %d\n",
 				nodes->sol_from_start,
 				nodes->sol_from_end);
@@ -158,6 +131,6 @@ int			main(void)
 		++nodes;
 		++i;
 	}
-//	array_free(list);
+	array_free(list);
 	return (0);
 }
