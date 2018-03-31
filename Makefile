@@ -1,6 +1,9 @@
 all:
 	make -C libft
-	gcc main.c -Ilibft  -Llibft -lft
+	gcc -g main.c -Ilibft  -Llibft -lft
 
 run: all
 	./a.out
+
+debug:
+	lldb a.out
