@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 21:30:19 by scornaz           #+#    #+#             */
-/*   Updated: 2018/03/31 23:26:54 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/03/31 23:39:32 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,45 +45,47 @@ t_array		*hydrate(char **connexions, int salles)
 	return (list);
 }
 
+void	getnames2(t_map *map, t_array *array, char *line, int *flag)
+{
+	t_node	sol;
+	char	**infos;
+	
+	if (line[0] == '#')
+	{
+		line += 2;
+		if (ft_strequ(line, "start"))
+			*flag = 1;
+		else if (ft_strequ(line, "end"))
+			*flag = -1;
+	}
+	else if (!ft_strsplit(line, '-')[1])
+	{
+		infos = ft_strsplit(line, ' ');
+		sol.name = infos[0];
+		if (!map->start && *flag == 1)
+			map->start = sol.name;
+		else if (!map->end && *flag == -1)
+			map->end = sol.name;
+		++(map->salles);
+		sol.x = ft_atoi(infos[1]);
+		sol.y = ft_atoi(infos[2]);
+		array_add(array, &sol, 1);
+	}
+}
+
 t_node		*get_names(t_map *map)
 {
 	char	*line;
-	char	**infos;
 	t_array	*array;
 	int		fd;
-	t_node  sol;
-	int start = 0;
-	int end = 0;
-	
+	int		start_end;
+
+	start_end = 0;
 	array = array_new(sizeof(t_node), 8);
 	if ((fd = open("config", O_RDONLY)) != -1)
 	{
 		while (get_next_line(fd, &line) > 0)
-		{
-			if (line[0] == '#')
-			{
-				line += 2;
-				if (ft_strequ(line, "start"))
-					start = 1;
-				else if (ft_strequ(line, "end"))
-					end = 1;
-			}
-			else if (!ft_strsplit(line, '-')[1])
-			{
-				infos = ft_strsplit(line, ' ');
-				sol.name = infos[0];
-				if (start)
-					map->start = sol.name;
-				else if (end)
-					map->end = sol.name;
-				++(map->salles);
-				sol.x = ft_atoi(infos[1]);
-				sol.y = ft_atoi(infos[2]);
-				array_add(array, &sol, 1);
-				start = 0;
-				end = 0;
-			}
-		}
+			getnames2(map, array, line, &start_end);
 	}
 	return (array->mem);	
 }
@@ -141,7 +143,7 @@ int			main(void)
 	nodes = get_names(&map);
 	connexions = ft_strsplit(map.connexions, ' ');
 	printf("%s et %s", map.start, map.end);
-//	list = hydrate(connexions, map.salles);
+//	list = hydrate(nodes, connexions, map.salles);
 //	nodes = ((t_node*)(list->mem));
 	while (i < map.salles)
 	{
