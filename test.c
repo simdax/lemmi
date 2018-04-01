@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 11:44:44 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/01 12:49:20 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/01 13:37:41 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ void	free_f(t_array *array)
 		node[i].name = 0;
 		array_free(node[i].connexions);
 		node[i].connexions = 0;
+//		node = 0;
 		++i;
 	}
+	free(node);
 }
 
 int		main(void)
