@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 11:44:44 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/01 19:23:26 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/01 20:21:59 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_node	*node_find_name(t_node *node, const char *string)
 		if (ft_strequ(string, connexions[i]))
 		{
 			match = array_at(i, node->connexions_ptr);
-			break;	
+			break ;
 		}
 		++i;
 	}
@@ -70,7 +70,7 @@ void	process(t_array *nodes, char *start, char *end)
 	t_node		*start_node;
 	t_node		*end_node;
 	unsigned	i;
-	
+
 	start_node = array_find(nodes, p_strequ, start);
 	end_node = array_find(nodes, p_strequ, end);
 	if (start_node)

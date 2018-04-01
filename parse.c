@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 21:30:19 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/01 20:20:04 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/01 20:22:56 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 void		multiple_connexions(t_array *array, char *line, char **split_line)
 {
 	char	*tmp;
-	
+
 	tmp = 0;
-//	if (array->mem)
-//		printf("%s dans %s", ft_strstr(line, array->mem), array->mem);
 	if (array->mem && ft_strstr(array->mem, line))
 		return ;
 	array_add(array, line, ft_strlen(line));
