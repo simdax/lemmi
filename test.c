@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 11:44:44 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/01 20:21:59 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/01 20:30:37 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@ t_node	*node_find_name(t_node *node, const char *string)
 	int		i;
 
 	i = 0;
+	match = 0;
 	connexions = ft_strsplit(node->connexions->mem, '|');
 	while (connexions[i])
 	{
+		printf("CONTRAIRE but %s et les connecs de %s :  %s\n",
+			   string, connexions[i], node->name);
+		fflush(stdout);
 		if (ft_strequ(string, connexions[i]))
 		{
 			match = array_at(i, node->connexions_ptr);
@@ -50,7 +54,6 @@ t_node	*node_find_name(t_node *node, const char *string)
 		++i;
 	}
 	ft_free_strsplit(connexions);
-	printf("%s fdasfds\n", string);
 	return (match);
 }
 

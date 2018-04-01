@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 20:08:04 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/01 20:08:55 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/01 20:33:27 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void		getnames2(t_map *map, t_array *array, char *line, int *flag)
 	}
 	else if (!(infos = ft_strsplit(line, '-'))[1])
 	{
+		getnames3(array, &sol, line);
 		if (!map->start && *flag == 1)
 			map->start = sol.name;
 		else if (!map->end && *flag == -1)
 			map->end = sol.name;
 		++(map->salles);
-		getnames3(array, &sol, line);
 		ft_free_strsplit(infos);
 	}
 	else
