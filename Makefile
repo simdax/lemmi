@@ -7,5 +7,11 @@ all:
 run: all
 	./a.out
 
-debug:
+debug: all
 	lldb a.out
+
+valgrind: all
+	valgrind --leak-check=full ./a.out
+
+norminette:
+	norminette $(SRCS)
