@@ -6,11 +6,16 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 15:48:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/01 17:46:25 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/01 19:25:34 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemmi.h"
+
+void		p(void *data, t_array *array)
+{
+	printf(" %s", ((t_node*)data)->name);
+}
 
 static void	p_array_p(void *n, t_array *array)
 {
@@ -19,8 +24,9 @@ static void	p_array_p(void *n, t_array *array)
 	node = n;
 	printf("name : %s\npos: %d et %d\n", node->name, node->y, node->x);
 	printf("solutions: %d et %d\n", node->sol_from_start, node->sol_from_end);
-//	printf("nb ptr = %d\n", node->connexions_ptr->cursor);
-	printf("connexions: %s\n\\\\\\\n", (char*)node->connexions->mem);
+	printf("connexions :");
+	array_for_each(node->connexions_ptr, p);
+	printf("\n\\\\\\\n");
 }
 
 int			p_strequ(void *a, void *b)

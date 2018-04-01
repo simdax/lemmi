@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 21:30:39 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/01 15:53:28 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/01 20:08:51 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_map {
 
 void		print_nodes(t_array *list, t_map *map);
 void		free_f(t_array *array);
+t_array		*get_names(t_map *map);
 t_array		*hydrate(t_array *list, char **connexions, int salles);
 int			p_strequ(void *a, void *b);
 t_array		*parse(t_map *map);

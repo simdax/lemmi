@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 11:44:44 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/01 17:45:32 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/01 19:23:26 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	transform(void *n, t_array *array)
 	connexions = ft_strsplit(node->connexions->mem, '|');
 	while (connexions[i])
 	{
-		printf("%s\n", connexions[i]);
 		if ((node_ptr = array_find(array, p_strequ, connexions[i])))
 			array_add(node->connexions_ptr, node_ptr, 1);
 		++i;
@@ -55,7 +54,7 @@ t_node	*node_find_name(t_node *node, const char *string)
 	return (match);
 }
 
-void	search(void *n, char *end, t_array *array)
+void	search(void *n, void *end, t_array *array)
 {
 	t_node	*node;
 
@@ -72,7 +71,6 @@ void	process(t_array *nodes, char *start, char *end)
 	t_node		*end_node;
 	unsigned	i;
 	
-	array_for_each(nodes, transform);
 	start_node = array_find(nodes, p_strequ, start);
 	end_node = array_find(nodes, p_strequ, end);
 	if (start_node)
@@ -94,6 +92,7 @@ int		main(void)
 
 	map = (t_map){0, 0, 0};
 	nodes = parse(&map);
+	array_for_each(nodes, transform);
 	print_nodes(nodes, &map);
 	process(nodes, map.start, map.end);
 	array_free2(nodes, free_f);
