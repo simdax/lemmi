@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 21:30:19 by scornaz           #+#    #+#             */
-/*   Updated: 2018/03/31 23:55:49 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/01 11:29:11 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,31 +106,17 @@ char		*get_txt(void)
 	return (array->mem);
 }
 
-int			main(void)
+t_array		*parse(t_map *map)
 {
 	int		i;
-	t_map	map;
+//	t_map	map;
 	char	**connexions;
 	t_array	*list;
-	t_node	*nodes;
 
-	map = (t_map){0, 0, 0, get_txt()};
 	i = 0;
-	list = get_names(&map);
-	connexions = ft_strsplit(map.connexions, ' ');
-	hydrate(list, connexions, map.salles);
-	nodes = ((t_node*)(list->mem));
-	printf("%s et %s", map.start, map.end);
-	while (i < map.salles)
-	{
-		printf("name : %s %d et %d\n", nodes->name, nodes->y, nodes->x);
-		printf("%d et %d\n",
-				nodes->sol_from_start,
-				nodes->sol_from_end);
-		printf("%s\n", (char*)nodes->connexions->mem);
-		++nodes;
-		++i;
-	}
-	array_free(list);
-	return (0);
+	map->connexions = get_txt();
+	list = get_names(map);
+	connexions = ft_strsplit(map->connexions, ' ');
+	hydrate(list, connexions, map->salles);
+	return (list);
 }

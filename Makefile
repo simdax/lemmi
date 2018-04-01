@@ -1,6 +1,8 @@
+SRCS = parse.c test.c
+
 all:
 	make -C libft
-	gcc -g main.c -Ilibft  -Llibft -lft
+	gcc -g $(SRCS) -Ilibft  -Llibft -lft
 
 run: all
 	./a.out
