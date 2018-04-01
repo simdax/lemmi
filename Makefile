@@ -1,4 +1,4 @@
-SRCS = parse.c test.c
+SRCS = parse.c test.c array_utils.c		
 
 all:
 	make -C libft

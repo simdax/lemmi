@@ -6,46 +6,17 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 21:30:19 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/01 13:34:23 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/01 15:56:14 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "lemmi.h"
 
-t_array		*hydrate(t_array *list, char **connexions, int salles)
-{
-	t_node	*node;
-	t_node	sol;
-	char	**names;
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < salles)
-	{
-		node = ((t_node*)(list->mem) + i);
-		node->connexions = array_new(sizeof(char), 4);
-		j = 0;
-		while (connexions[j])
-		{
-			names = ft_strsplit(connexions[j], '-');
-			if (ft_strequ(names[0], node->name))
-			{
-				array_add(node->connexions, names[1], ft_strlen(names[1]));
-				array_add(node->connexions, "|", 1);
-			}
-			++j;
-			ft_free_strsplit(names);
-		}
-	}
-	return (list);
-}
-
 void		getnames3(t_array *array, t_node *sol, char *line)
 {
 	char	**infos;
-	
+
 	infos = ft_strsplit(line, ' ');
 	sol->name = ft_strdup(infos[0]);
 	sol->x = ft_atoi(infos[1]);
