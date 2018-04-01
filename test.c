@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 11:44:44 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/01 20:30:37 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/01 21:00:45 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	transform(void *n, t_array *array)
 			array_add(node->connexions_ptr, node_ptr, 1);
 		++i;
 	}
+	printf("%p\n", node_ptr);
+ 	printf("%p\n", (t_node*)node->connexions_ptr->mem[0]);
 	ft_free_strsplit(connexions);
 }
 
@@ -40,6 +42,8 @@ t_node	*node_find_name(t_node *node, const char *string)
 
 	i = 0;
 	match = 0;
+	printf("la mem %p\n", node->connexions);
+	fflush(stdout);
 	connexions = ft_strsplit(node->connexions->mem, '|');
 	while (connexions[i])
 	{
@@ -61,8 +65,9 @@ void	search(void *n, void *end, t_array *array)
 {
 	t_node	*node;
 
-	printf("baum\n");
-	if (node_find_name(n, end))
+	node = n;
+	printf("baum\n"); fflush(stdout);
+	if (node_find_name(node, end))
 		printf("trouve !");
 	else
 		array_for_each2(node->connexions_ptr, end, search);
