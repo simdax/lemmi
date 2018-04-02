@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 15:48:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/01 19:25:34 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/02 12:11:12 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void		p(void *data, t_array *array)
 {
-	printf(" %s", ((t_node*)data)->name);
+//	printf(" %s", ((t_node*)data)->name);
+	printf(" %s", (*(t_node**)data)->name);
 }
 
-static void	p_array_p(void *n, t_array *array)
+void		print_node(void *n, t_array *array)
 {
 	t_node	*node;
 
@@ -25,8 +26,10 @@ static void	p_array_p(void *n, t_array *array)
 	printf("name : %s\npos: %d et %d\n", node->name, node->y, node->x);
 	printf("solutions: %d et %d\n", node->sol_from_start, node->sol_from_end);
 	printf("connexions :");
-	array_for_each(node->connexions_ptr, p);
+	if (node->connexions_ptr)
+		array_for_each(node->connexions_ptr, p);
 	printf("\n\\\\\\\n");
+	fflush(stdout);
 }
 
 int			p_strequ(void *a, void *b)
@@ -61,12 +64,6 @@ t_array		*hydrate(t_array *list, char **connexions, int salles)
 		}
 	}
 	return (list);
-}
-
-void		print_nodes(t_array *list, t_map *map)
-{
-	printf("start %s et end %s\n", map->start, map->end);
-	array_for_each(list, p_array_p);
 }
 
 void		free_f(t_array *array)
