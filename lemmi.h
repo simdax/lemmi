@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 21:30:39 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/02 11:45:56 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/02 12:54:08 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ typedef struct	s_map {
 	char	*connexions;
 	char	*names;
 }				t_map;
+
+typedef struct	s_search{
+	char	*goal;
+	t_array	*memoization;
+}				t_search;
 
 void		print_nodes(t_array *list, t_map *map);
 void		print_node(void *n, t_array *array);
