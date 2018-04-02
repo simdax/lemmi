@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 11:44:44 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/02 13:12:55 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/02 14:17:58 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	transform(void *n, t_array *array)
 	{
 		if ((node_ptr = array_find(array, p_strequ, connexions[i])))
 		{
-				printf("dans transform %p\n", node_ptr);
+//				printf("dans transform %p\n", node_ptr);
 				array_add(node->connexions_ptr, &node_ptr, 1);
 		}		
 		++i;
@@ -70,17 +70,14 @@ void	search(void *n, void *d, t_array *array)
 
 	node = (*(t_node**)n);
 	data = d;
-	printf("depuis : %s\n", node->name);
-	if(array_find(data->memoization, find_dup, node->name))
-		printf("deja vu!\n");
+	if (array_find(data->memoization, find_dup, node->name))
+		return ;
+	printf("depuis : %s pour %s\n", node->name, data->goal);
+	array_add(data->memoization, &node->name, 1);
+	if (node_find_name(node, data->goal))
+		printf("trouve !\n");
 	else
-	{
-		array_add(data->memoization, &node->name, 1);
-		if (node_find_name(node, data->goal))
-			printf("trouve !\n");
-		else
-			array_for_each2(node->connexions_ptr, data, search);
-	}
+		array_for_each2(node->connexions_ptr, data, search);
 }
 
 void	search_data_free(t_search *search)
@@ -96,7 +93,7 @@ void	process(t_array *nodes, char *start, char *end)
 	search_data = ft_memalloc(sizeof(t_search));
 	search_data->memoization = array_new(sizeof(char*), 8);
 	start_node = array_find(nodes, p_strequ, start);
-	search_data->goal = array_find(nodes, p_strequ, end);
+	search_data->goal =((t_node*)array_find(nodes, p_strequ, end))->name;
 	if (start_node)
 		search(&start_node, search_data, nodes);
 	/* if (end_node) */

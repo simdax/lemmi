@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 15:48:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/04/02 12:11:12 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/04/02 14:11:19 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void		p(void *data, t_array *array)
 {
-//	printf(" %s", ((t_node*)data)->name);
 	printf(" %s", (*(t_node**)data)->name);
 }
 
