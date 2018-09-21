@@ -14,9 +14,9 @@
 
 void	transform(void *n, t_array *array)
 {
-	char	**connexions;
+	char	  **connexions;
 	t_node	*node_ptr;
-	int		i;
+	int		  i;
 	t_node	*node;
 
 	i = 0;
@@ -37,9 +37,9 @@ void	transform(void *n, t_array *array)
 
 t_node	*node_find_name(t_node *node, const char *string)
 {
-	char	**connexions;
+	char	  **connexions;
 	t_node	*match;
-	int		i;
+	int		  i;
 
 	i = 0;
 	match = 0;
@@ -107,7 +107,7 @@ void	process(t_array *nodes, char *start, char *end)
 int		main(void)
 {
 	t_array	*nodes;
-	t_map	map;
+	t_map	  map;
 
 	map = (t_map){0, 0, 0};
 	nodes = parse(&map);
